@@ -1,0 +1,664 @@
+/* *****************************************
+/* HOT GARBAGE - PLEASE DON'T MIMIC THIS CSS
+/*******************************************/
+
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+body{
+  background-color: rgb(255, 247, 222);
+}
+
+h1, h2{
+  text-align: center;
+}
+
+h2{
+  min-width: 350px;
+  max-width: 350px;
+  height: 50px;
+  border: 3px solid black;
+  margin: 20px auto;
+  padding: 7px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+h2:hover {
+  transform: scale(1.1);
+}
+
+.logo{
+  display: block;
+  height: 350px;
+  margin: 100px auto;
+}
+.logo:hover{
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  transform: scale(1.1);
+}
+
+.remoteControl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  max-width: 350px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 3px solid black;
+  border-radius: 20px;
+}
+
+.remoteControl button {
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  width: 95px;
+  height: 95px;
+  border-radius: 50px;
+  border-color: rgb(0, 0, 0);
+  border: 3px solid;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.remoteControl button:hover {
+  transform: scale(1.1);
+}
+
+/* #evolveButton.disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+} */
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+#red{
+  background-image: url(https://loodibee.com/wp-content/uploads/Pokemon-Charmander-icon.png);
+  background-size: 100% 100%;
+  background-color: rgb(161, 14, 14);
+}
+#green{
+  background-image: url(https://loodibee.com/wp-content/uploads/Pokemon-Bulbasaur-icon.png);
+  background-size: 100% 100%;
+  background-color: rgb(53, 163, 2);
+}
+#blue{
+  background-image: url(https://loodibee.com/wp-content/uploads/Pokemon-Squirtle-icon.png);
+  background-size: 100% 100%;
+  background-color: rgb(28, 145, 255);
+}
+#red2{
+  background-image: url(https://static.wikia.nocookie.net/pokemon-advanced/images/0/00/Cynadquil.png);
+  background-size: 100% 100%;
+  background-color: rgba(231, 74, 26, 0.822);
+}
+#green2{
+  background-image: url(https://static.wikia.nocookie.net/pokemon-advanced/images/4/4e/Chikorita.png);
+  background-size: 100% 100%;
+  background-color: rgba(76, 197, 147, 0.822);
+}
+#blue2{
+  background-image: url(https://static.wikia.nocookie.net/pokemon-fighters-ex-roblox/images/6/67/H158.png);
+  background-size: 100% 100%;
+  background-color: rgba(6, 144, 207, 0.64);
+}#red3{
+  background-image: url(https://static.wikia.nocookie.net/goofy-legends-gl/images/6/65/Shuffle255.png);
+  background-size: 100% 100%;
+  background-color: rgba(255, 174, 0, 0.822);
+}
+#green3{
+  background-image: url(https://static.wikia.nocookie.net/goofy-legends-gl/images/4/4e/Shuffle252.png);
+  background-size: 100% 100%;
+  background-color: rgba(113, 223, 99, 0.822);
+}
+#blue3{
+  background-image: url(https://static.wikia.nocookie.net/pokemon-fighters-ex-roblox/images/e/e8/H258.png);
+  background-size: 100% 100%;
+  background-color: rgba(126, 228, 241, 0.822);
+}
+
+#pokemonImg {
+  position: absolute;
+  top: 275px;
+  left: 50%;
+  margin-left: -100px; /* half of width */
+  width: 200px;
+  height: auto;
+  display: none;
+  z-index: 5;
+  pointer-events: none;
+  transition: 
+    transform 0.3s ease,
+    filter 0.3s ease,
+    opacity 0.3s ease,
+    margin-left 0.3s ease,
+    width 0.3s ease;
+  filter: 
+    brightness(1.2) 
+    contrast(1.1) 
+    drop-shadow(0 0 8px orange);
+}
+
+#trainerBackground {
+  position: absolute;
+  top: 918px;
+  left: 825px;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 100px;
+  background-image: url('https://i.pinimg.com/originals/a7/bc/5e/a7bc5e24c5695d8ad44d6271b44e288d.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 0;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  filter: drop-shadow(0px 10px 12px rgba(0, 0, 0, 0.5));
+}
+  /* position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 110px;
+  background-image: url('https://i.pinimg.com/originals/a7/bc/5e/a7bc5e24c5695d8ad44d6271b44e288d.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1;
+  pointer-events: none;
+} */
+
+#pokemonImg.animate {
+  animation: glow 0.8s ease-in-out;
+}
+
+@keyframes glow {
+  0% { filter: brightness(1); transform: scale(1); }
+  50% { filter: brightness(1.6); transform: scale(1.1); }
+  100% { filter: brightness(1); transform: scale(1); }
+}
+
+#pokemonImg.charizard-transition {
+  animation: charizardGrowFade 1.2s ease forwards;
+}
+
+@keyframes charizardGrowFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: brightness(1.2);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+#startGameButton.disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+#startGameButton.active {
+  animation: pulse 1s infinite ease-in-out;
+  background-color: rgb(255, 255, 153);
+  color: black;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+button.selected {
+  box-shadow: 0 0 15px 5px yellow;
+  transform: scale(1.1);
+}
+
+.card {
+  width: 280px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: white;
+  border: 4px solid black;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Arial', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card .deck-sprite {
+  width: 120px;
+  margin: 10px auto;
+  display: block;
+}
+
+.card button {
+  background-color: #ffd859;
+  border: 3px solid #444;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card button:hover {
+  background-color: #ffcb05;
+  transform: scale(1.05);
+}
+
+.deck-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+}
+
+.card {
+  width: 180px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 3px solid black;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-align: center;
+  margin: 10px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.card .description {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.card .tag {
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* TYPE THEMES */
+.fire-card {
+  background: linear-gradient(to top left, #ff9966, #ff5e62);
+  color: white;
+}
+
+.wind-card {
+  background: linear-gradient(to top left, #b6f0ff, #58c2e5);
+  color: #00334d;
+}
+
+.defense-card {
+  background: linear-gradient(to top left, #c9d6ff, #e2e2e2);
+  color: #333;
+}
+
+.card.locked {
+  filter: grayscale(100%) brightness(0.7);
+  opacity: 0.6;
+  position: relative;
+  cursor: not-allowed;
+}
+
+.card.locked::after {
+  content: "🔒 Locked";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.power-card {
+  background: linear-gradient(to top left, #fa709a, #fee140);
+  color: black;
+}
+
+.lucky-card {
+  background: linear-gradient(to top left, #f5f7fa, #c3cfe2);
+  color: #222;
+}
+
+.poke-btn.locked-starter {
+  filter: grayscale(100%) brightness(0.5);
+  cursor: not-allowed;
+  position: relative;
+}
+
+.poke-btn.locked-starter::after {
+  content: "🔒";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 16px;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+.card {
+  width: 200px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 3px solid #222;
+  background: white;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: scale(1.05) rotateZ(1deg);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.card h3 {
+  font-size: 22px;
+  margin: 6px 0;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card .description {
+  font-size: 14px;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.card .tag {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8px;
+}
+
+.fire-card {
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  border-color: #ff5e62;
+}
+
+.fire-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes shine {
+  0% { left: -50%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* wind-card styles */
+.wind-card {
+  background: linear-gradient(to top left, #b6f0ff, #58c2e5);
+  color: #00334d;
+  position: relative;
+  overflow: hidden;
+  border-color: #58c2e5;
+}
+
+.wind-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* defense-card styles */
+.defense-card {
+  background: linear-gradient(to top left, #c9d6ff, #e2e2e2);
+  color: #333;
+  position: relative;
+  overflow: hidden;
+  border-color: #999;
+}
+
+.defense-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.4) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  transform: skewX(-20deg);
+  animation: shine 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* keyframes (only needs to be added once) */
+@keyframes shine {
+  0% { left: -50%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* === TYPE-THEMED BORDER COLORS === */
+.fire-card {
+  border-color: #ff5e62;
+}
+
+.wind-card {
+  border-color: #58c2e5;
+}
+
+.defense-card {
+  border-color: #999;
+}
+
+.power-card {
+  border-color: #e96d71;
+}
+
+.lucky-card {
+  border-color: #8884d8;
+}
+
+.card-container {
+  perspective: 1000px;
+  cursor: grab;
+}
+
+.card-flip {
+  width: 200px;
+  height: 140px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.card-container:hover .card-flip {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: 3px solid #222;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  backface-visibility: hidden;
+}
+
+.card-back {
+  background: #222;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.starter-pool {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 20px;
+  margin-bottom: 80px;
+}
+
+#drop-zone {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px dashed #999;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  z-index: 999;
+}
+
+#drop-zone h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #444;
+}
+
+.deck-slot-area {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  min-height: 120px;
+}
+
+.locked-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.card-pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+}
+
+@keyframes cardDropIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.card-drop {
+  animation: cardDropIn 0.4s ease-out;
+}
+
+/* Little Running Trainers */
+#trainerBackground {
+  display: none !important;
+}
+
+#scene-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: url('https://example.com/scene.png'); /* replace this */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4; /* adjust for transparency */
+  z-index: 0;
+}

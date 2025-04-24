@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="This app helps youtubers pick the best background color for their videos">
+    	<meta name="keywords" content="youtube, background, lights">
+
+		<title>Pokemon Starter Picker</title>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="normalize.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="scene-overlay"></div>
+		<div id="starter-screen">
+			<h1></h1>
+			<img id="Logo" class="logo" src="https://loodibee.com/wp-content/uploads/International-Pokemon-logo.png" alt="generic youtube gaming chair">
+		
+			<h2 id="startGameButton" class="disabled">Start Game</h2>
+
+			<div class="remoteControl">
+				<!-- Charmander (unlocked) -->
+				<button id="red" class="poke-btn" data-pokemon="charmander"></button>
+				<!-- <button id="green" class="poke-btn" data-pokemon="bulbasaur"></button>
+				<button id="blue" class="poke-btn" data-pokemon="squirtle"></button> -->
+			  
+				<!-- Gen 1 Locked -->
+				<button id="green" class="poke-btn locked-starter" disabled title="Locked: Catch Bulbasaur in battle"></button>
+				<button id="blue" class="poke-btn locked-starter" disabled title="Locked: Catch Squirtle in battle"></button>
+			  
+				<!-- Gen 2 Locked -->
+				<button id="red2" class="poke-btn locked-starter" disabled title="Locked: Catch Cyndaquil in battle"></button>
+				<button id="green2" class="poke-btn locked-starter" disabled title="Locked: Catch Chikorita in battle"></button>
+				<button id="blue2" class="poke-btn locked-starter" disabled title="Locked: Catch Totodile in battle"></button>
+			  
+				<!-- Gen 3 Locked -->
+				<button id="red3" class="poke-btn locked-starter" disabled title="Locked: Catch Torchic in battle"></button>
+				<button id="green3" class="poke-btn locked-starter" disabled title="Locked: Catch Treecko in battle"></button>
+				<button id="blue3" class="poke-btn locked-starter" disabled title="Locked: Catch Mudkip in battle"></button>
+			  </div>
+		
+			<img id="pokemonImg" style="display: none;" />
+
+			<div id="trainerBackground"></div>
+
+		</div>
+
+		<div id="deck-builder" style="display: none;">
+			<div id="drop-zone">
+				<h3>Your Deck</h3>
+				<div class="deck-slot-area" id="deck-slot-area">
+				  <!-- Dragged cards will appear here -->
+				</div>
+			  </div>
+			<h2 style="text-align: center;">Charmander Starter Deck</h2>
+
+			<!-- Floating cards row (scrolls left to right if overflow) -->
+			<div class="card-pool">
+<!-- 
+			<div class="deck-grid">
+			  <div class="card fire-card">
+				<h3>Ember</h3>
+				<p class="description">Deal 10 fire damage to the enemy.</p>
+				<p class="tag">🔥 Fire • Power: 10</p>
+			  </div> -->
+			  <div class="card-container" draggable="true">
+				<div class="card-flip">
+				  <div class="card-front fire-card">
+					<h3>Ember</h3>
+					<p class="tag">🔥 Fire • Power: 10</p>
+				  </div>
+				  <div class="card-back">
+					<p class="description">Deal 10 fire damage to the enemy. Basic starter move.</p>
+				  </div>
+				</div>
+			  </div>
+		  
+			  <!-- <div class="card fire-card">
+				<h3>Flare Up</h3>
+				<p class="description">Deal 20 fire damage. Deal +10 if HP below 50%.</p>
+				<p class="tag">🔥 Fire • Power: 20+</p>
+			  </div> -->
+			  <div class="card-container" draggable="true">
+				<div class="card-flip">
+				  <div class="card-front fire-card">
+					<h3>Flare Up</h3>
+					<p class="tag">🔥 Fire • Power: 20</p>
+				  </div>
+				  <div class="card-back">
+					<p class="description">Deal 20 fire damage. Deal +10 if HP below 50%.</p>
+				  </div>
+				</div>
+			  </div>
+		  
+			  <!-- <div class="card fire-card">
+				<h3>Ember+</h3>
+				<p class="description">Deal 15 fire damage. Upgraded Ember.</p>
+				<p class="tag">🔥 Fire • Power: 15</p>
+			  </div> -->
+			  <div class="card-container" draggable="true">
+				<div class="card-flip">
+				  <div class="card-front fire-card">
+					<h3>Ember+</h3>
+					<p class="tag">🔥 Fire • Power: 15</p>
+				  </div>
+				  <div class="card-back">
+					<p class="description">Deal 15 fire damage. Upgraded Ember.</p>
+				  </div>
+				</div>
+			  </div>
+		  
+			  <!-- <div class="card wind-card">
+				<h3>Tailwind</h3>
+				<p class="description">Increase speed. Gain +5 XP.</p>
+				<p class="tag">💨 Buff • Speed Boost</p>
+			  </div> -->
+			  <div class="card-container" draggable="true">
+				<div class="card-flip">
+				  <div class="card-front fire-card">
+					<h3>Ember</h3>
+					<p class="tag">💨 Buff • Speed Boost</p>
+				  </div>
+				  <div class="card-back">
+					<p class="description">Increase speed. Gain +5 XP.</p>
+				  </div>
+				</div>
+			  </div>
+		  
+			  <!-- <div class="card defense-card">
+				<h3>Block</h3>
+				<p class="description">Reduce damage from next enemy attack by 50%.</p>
+				<p class="tag">🛡️ Defense • Duration: 1 turn</p>
+			  </div> -->
+			  <div class="card-container" draggable="true">
+				<div class="card-flip">
+				  <div class="card-front fire-card">
+					<h3>Defense</h3>
+					<p class="tag">🛡️ Defense • Duration: 1 turn</p>
+				  </div>
+				  <div class="card-back">
+					<p class="description">Reduce damage from next enemy attack by 50%.</p>
+				  </div>
+				</div>
+			  </div>
+			  <!-- Locked Cards -->			  
+
+				<div class="card fire-card locked">
+					<h3>Fire Spin</h3>
+					<p class="description">Locked - Complete 3 battles in a row.</p>
+					<p class="tag">🔥 Fire • Burn Effect</p>
+				</div>
+				
+				<div class="card wind-card locked">
+					<h3>Smokescreen</h3>
+					<p class="description">Locked - Win a battle without taking damage.</p>
+					<p class="tag">💨 Debuff • Accuracy Down</p>
+				</div>
+				
+				<div class="card power-card locked">
+					<h3>Seismic Toss</h3>
+					<p class="description">Locked - Reach Level 10 with Charmander.</p>
+					<p class="tag">💥 Power • Damage scales with level</p>
+				</div>
+				
+				<div class="card fire-card locked">
+					<h3>Flame Blast</h3>
+					<p class="description">Locked - Defeat a boss with fire moves only.</p>
+					<p class="tag">🔥 Supermove • Power: 30+</p>
+				</div>
+				
+				<div class="card lucky-card locked">
+					<h3>Lucky Claw</h3>
+					<p class="description">Locked - Catch a shiny starter.</p>
+					<p class="tag">⭐ Rare • Draw 1, Gain 5 XP</p>
+				</div>
+			</div>
+		  </div>
+		
+		<div id="battle-screen" style="display: none;">
+			<!-- This will be used for the battle system -->
+			<h2 style="text-align: center;">Battle Arena Coming Soon</h2>
+		</div>
+		
+		<script src="main.js"></script>
+	</body>
+</html>
+
+		
+		<!-- <h1></h1>
+		<img id="Logo" class="logo" src="https://loodibee.com/wp-content/uploads/International-Pokemon-logo.png" alt="generic youtube gaming chair">
+
+		<h2 id="evolveButton">Choose your Pokémon!</h2>
+		<div class="remoteControl">
+			<button id="red" class="poke-btn" data-pokemon="charmander"></button>
+			<button id="green" class="poke-btn" data-pokemon="bulbasaur"></button>
+			<button id="blue" class="poke-btn" data-pokemon="squirtle"></button>
+		  
+			<button id="red2" class="poke-btn" data-pokemon="cyndaquil"></button>
+			<button id="green2" class="poke-btn" data-pokemon="chikorita"></button>
+			<button id="blue2" class="poke-btn" data-pokemon="totodile"></button>
+		  
+			<button id="red3" class="poke-btn" data-pokemon="torchic"></button>
+			<button id="green3" class="poke-btn" data-pokemon="treecko"></button>
+			<button id="blue3" class="poke-btn" data-pokemon="mudkip"></button>
+		</div>
+		<script type="text/javascript" src="main.js"></script>
+		<img id="pokemonImg" style="display: none;" />
+		<div id="trainerBackground"></div> -->
