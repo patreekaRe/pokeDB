@@ -950,3 +950,35 @@ button.selected {
     transform: scale(1);
   }
 }
+
+.battle-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+.player-side,
+.enemy-side {
+  flex: 1;
+  text-align: center;
+}
+
+#player-sprite,
+#enemy-sprite {
+  max-width: 150px;
+  height: auto;
+}
+
+.battle-hand {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  z-index: 999;
+}

@@ -193,8 +193,50 @@
 		  </div>
 		
 		<div id="battle-screen" style="display: none;">
+			<img id="player-sprite">
+			<img id="enemy-sprite">
+			<p id="enemy-name"></p>
+			<p id="enemy-description"></p>
+			<p id="enemy-hp"></p>
+			<div id="effectiveness-msg"></div>
+			<div id="battle-hand"></div>
+
+			<div class="battle-layout">
+				<div class="player-side">
+				  <h3>You</h3>
+				  <img id="player-sprite" src="" alt="Your Sprite">
+				</div>
+			  
+				<div class="enemy-side">
+				  <h3 id="enemy-name">Enemy</h3>
+				  <img id="enemy-sprite" src="" alt="Enemy Sprite">
+				  <p id="enemy-hp">HP: ???</p>
+				  <p id="enemy-description">Description here</p>
+				  <div id="effectiveness-msg"></div>
+				</div>
+			  </div>
+			  
+			  <div id="battle-hand" class="battle-hand">
+				<!-- Cards will be appended here -->
+			  </div>
 			<!-- This will be used for the battle system -->
-			<h2 style="text-align: center;">Battle Arena Coming Soon</h2>
+			<!-- <h2 style="text-align: center;">Battle Arena Coming Soon</h2> -->
+			<div id="battle-layout" class="battle-layout">
+				<div class="player-side">
+				  <img id="player-sprite" src="" alt="Player Sprite">
+				</div>
+			  
+				<div class="enemy-side">
+				  <h3 id="enemy-name"></h3>
+				  <img id="enemy-sprite" src="" alt="Enemy Sprite">
+				  <p id="enemy-hp">HP:</p>
+				  <p id="enemy-description"></p>
+				</div>
+			  
+				<div id="battle-hand" class="battle-hand">
+				  <!-- Player's 5 battle cards will be cloned here -->
+				</div>
+			  </div>
 		</div>
 		
 		<script src="main.js"></script>

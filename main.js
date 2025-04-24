@@ -176,18 +176,49 @@ if (typeEffectiveness[playerType]) {
     const deckSize = document.querySelectorAll('.deck-slot-area .card-container').length;
     const scaledHP = enemy.hp + deckSize * 10;
 
+    
+    
+    
+
 // 2️⃣ Then render HTML and insert the value
-    document.getElementById('battle-screen').innerHTML = `
-      <h2>Battle Start!</h2>
-      <p>You are battling with ${currentPokemon.toUpperCase()}!</p>
-      <div class="enemy-card">
-        <h3>Enemy: ${enemy.name}</h3>
-        <img src="${enemy.sprite}" style="width: 120px;">
-        <p id="enemy-hp">HP: ${scaledHP}</p> <!-- ✅ You can now use the variable -->
-        <p style="font-style: italic;">${enemy.description}</p>
-      </div>
-      ${effectivenessNote}
-`;
+//     document.getElementById('battle-screen').innerHTML = `
+    
+//       <h2>Battle Start!</h2>
+//       <p>You are battling with ${currentPokemon.toUpperCase()}!</p>
+//       <div class="enemy-card">
+//         <h3>Enemy: ${enemy.name}</h3>
+//         <img src="${enemy.sprite}" style="width: 120px;">
+//         <p id="enemy-hp">HP: ${scaledHP}</p> <!-- ✅ You can now use the variable -->
+//         <p style="font-style: italic;">${enemy.description}</p>
+//       </div>
+//       ${effectivenessNote}     
+// `
+document.getElementById("enemy-name").textContent = `Enemy: ${enemy.name}`;
+document.getElementById("enemy-sprite").src = enemy.sprite;
+document.getElementById("enemy-hp").textContent = `HP: ${scaledHP}`;
+document.getElementById("enemy-description").textContent = enemy.description;
+document.getElementById("effectiveness-msg").innerHTML = effectivenessNote;
+
+document.getElementById("player-sprite").src = document.getElementById("pokemonImg").src;
+;
+
+  // 🟢 Show player sprite on left
+  const playerSprite = document.getElementById("player-sprite");
+  playerSprite.src = document.getElementById("pokemonImg").src;
+
+  // 🟢 Transfer cards to the battle hand at bottom
+  const battleHand = document.getElementById("battle-hand");
+  battleHand.innerHTML = "";
+
+  const deckCards = document.querySelectorAll("#deck-slot-area .card-container");
+  deckCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.add("battle-card");
+    clone.removeAttribute("draggable");
+    battleHand.appendChild(clone);
+  });
+}; // ✅ THIS closes the full function
+
   
     // document.getElementById('battle-screen').innerHTML = `
     //   <h2>Battle Start!</h2>
@@ -205,7 +236,6 @@ if (typeEffectiveness[playerType]) {
     //   </div>
     //   ${effectivenessNote}
     // `;
-  }
 
   // All your original functions go below (unchanged from what you just shared)
 
