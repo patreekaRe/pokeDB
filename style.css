@@ -662,3 +662,291 @@ button.selected {
   opacity: 0.4; /* adjust for transparency */
   z-index: 0;
 }
+
+#logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.main-logo {
+  max-width: 70%;
+  height: auto;
+}
+
+.db-logo {
+  max-width: 20%;
+  margin-top: -30px;
+  margin-left: 240px; /* Adjust to position it after the "N" in Pokémon */
+  position: relative;
+}
+
+.rogue-logo {
+  max-width: 60%;
+  margin-top: -20px;
+}
+
+/* Make starter area look better on phones */
+@media (max-width: 600px) {
+  #starter-screen {
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+
+  .card-container {
+    transform: scale(1.3);
+    margin-bottom: 1rem;
+  }
+}
+
+/* === MOBILE OPTIMIZATION FOR STARTER SCREEN === */
+@media (max-width: 600px) {
+  #starter-screen {
+    padding: 2rem 1rem;
+    gap: 2rem;
+    scale: 1.1;
+  }
+
+  .remoteControl {
+    transform: scale(1.15);
+    max-width: 100%;
+  }
+
+  .db-logo {
+    margin-left: 140px;
+    max-width: 30%;
+  }
+
+  .rogue-logo {
+    max-width: 80%;
+  }
+
+  h2#startGameButton {
+    transform: scale(1.1);
+  }
+}
+
+/* === STARTER SCREEN REORGANIZATION === */
+#starter-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  gap: 1.5rem;
+  position: relative;
+  overflow-x: hidden;
+
+  background-image: url('');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Logo stack */
+#logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.main-logo {
+  width: 300px;      /* Set exact width */
+  height: auto;      /* Maintain aspect ratio */
+  max-width: 80vw;   /* Never go wider than 80% of screen */
+  position: relative;
+  top: -60px
+}
+
+.db-logo {
+  /* transform: scale(.5);
+  position: relative;
+  top: -210px;
+  left: -30px;
+  transform: scale(.4); */
+
+  width: 90px;      /* Set exact width */
+  height: auto;      /* Maintain aspect ratio */
+  max-width: 80vw;   /* Never go wider than 80% of screen */
+  position: relative;
+  top: -165px;
+  left: -85px;
+}
+
+.rogue-logo {
+  /* max-width: 70vw;
+  position: relative;
+  top: -645px;
+  transform: scale(.2); */
+  width: 100px;      /* Set exact width */
+  height: auto;      /* Maintain aspect ratio */
+  max-width: 80vw;   /* Never go wider than 80% of screen */
+  position: relative;
+  top: -240px;
+  left: -50px;
+}
+
+/* Start Game button sizing */
+#startGameButton {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  width: 300px;      
+  height: auto;      
+  max-width: 80vw;   
+  position: relative;
+  top: -10px
+}
+
+/* Scale buttons for starter selection */
+/* .remoteControl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 14px;
+  width: 100%;
+  max-width: 350px;
+  padding: 1rem;
+  transform: scale(1.1);
+  justify-content: center;
+  position: relative;
+  position: relative;
+  margin-top: -500px;        
+  margin-left: 340px;       
+} */
+
+.remoteControl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 14px;
+  width: 100%;
+  max-width: 360px;
+  padding: 1rem;
+  transform: scale(1.5);
+  justify-content: center;
+  position: relative;
+  top: -10px;
+  margin: 0 auto; /* ✅ Center it */
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+  #starter-screen {
+    gap: 2.5rem;
+    padding-top: 1.5rem;
+    scale: 1.1;
+  }
+
+  .main-logo {
+    max-width: 80vw;
+  }
+
+  .db-logo {
+    max-width: 28vw;
+    margin-left: 100px;
+  }
+
+  .rogue-logo {
+    max-width: 75vw;
+  }
+
+  #startGameButton {
+    font-size: 1.4rem;
+    transform: scale(1.1);
+  }
+
+  .remoteControl {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+/* === Starter Reveal Animation === */
+.remoteControl {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: 
+    max-height 0.6s ease, 
+    opacity 0.6s ease, 
+    transform 0.6s ease;
+}
+
+.remoteControl.show {
+  max-height: 800px;  /* enough to fit all buttons */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.start-game-button {
+  background: linear-gradient(to bottom right, #ff6b6b, #ff8e53);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  letter-spacing: 1px;
+  transform: scale(1);
+  position: relative;
+  overflow: hidden;
+}
+
+.start-game-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(255, 107, 107, 0.6);
+}
+
+.start-game-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
+
+#scene-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+  z-index: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.scene-transition {
+  animation: sceneFadeZoom 1s ease forwards;
+}
+
+@keyframes sceneFadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+}

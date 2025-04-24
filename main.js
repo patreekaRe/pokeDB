@@ -3,8 +3,21 @@
 // Everything wrapped properly inside DOMContentLoaded
 
 document.addEventListener("DOMContentLoaded", function () {
+  const sceneMap = {
+    charmander: "url('https://wallpapercave.com/wp/wp4088416.jpg')", // volcano
+    bulbasaur: "url('https://images.unsplash.com/photo-1508923567004-3a6b8004f3d3?fit=crop&w=1200&h=800')", // forest
+    squirtle:   "url('https://wallpaperaccess.com/full/1702497.jpg')", // water cave
+  
+    cyndaquil:  "url('https://images.unsplash.com/photo-1619443137922-28c5410e86a2?fit=crop&w=1200&h=800')", // lava chasm
+    chikorita:  "url('https://images.unsplash.com/photo-1613621048949-51e0a3918fd0?fit=crop&w=1200&h=800')", // peaceful grove
+    totodile:   "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=1200&h=800')", // waterfall
+  
+    torchic:    "url('https://images.unsplash.com/photo-1506784242123-d1b27fb3c0d2?fit=crop&w=1200&h=800')", // ember cliffs
+    treecko:    "url('https://images.unsplash.com/photo-1549887534-9e3cde4a91b3?fit=crop&w=1200&h=800')",   // jungle temple
+    mudkip:     "url('https://images.unsplash.com/photo-1606741961634-0de9d30d4e8e?fit=crop&w=1200&h=800')"  // marsh
+  };
 
-  const startBtn = document.getElementById('startGameButton');
+  // const startBtn = document.getElementById('startGameButton');
 
   document.getElementById('red').onclick = partyRed;
   document.getElementById('green').onclick = partyGreen;
@@ -18,32 +31,180 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('green3').onclick = partyGreen3;
   document.getElementById('blue3').onclick = partyBlue3;
 
-  document.getElementById('Logo').onclick = partyLogo;
+  // document.getElementById('Logo').onclick = partyLogo;
 
   let currentPokemon = null;
   let evolutionStage = 0;
 
-  startBtn.addEventListener('click', () => {
-    if (!currentPokemon) return;
+  const enemies = {
+    ashroot: {
+      name: "Ashroot 🌿",
+      type: "Grass",
+      hp: 60,
+      sprite: "https://i.imgur.com/ZsKTW3A.png",
+      description: "A sneaky vine beast that drains XP."
+    },
+    blazeclaw: {
+      name: "Blazeclaw 🔥",
+      type: "Fire",
+      hp: 80,
+      sprite: "https://example.com/blazeclaw.png",
+      description: "An aggressive predator with blazing strikes."
+    },
+    aquaeye: {
+      name: "Aquaeye 💧",
+      type: "Water",
+      hp: 70,
+      sprite: "https://example.com/aquaeye.png",
+      description: "This enemy floods the battlefield and hides behind waves."
+    }
 
-    document.getElementById('starter-screen').style.display = 'none';
-    document.getElementById('deck-builder').style.display = 'block';
 
+  };
+  // function getRandomEnemyId() {
+  //   const keys = Object.keys(enemies);
+  //   const randomIndex = Math.floor(Math.random() * keys.length);
+  //   return keys[randomIndex];
+  // }
+  function randomEncounter() {
+    const keys = Object.keys(enemies);
+    const randomIndex = Math.floor(Math.random() * keys.length);
+    return keys[randomIndex];
+  }
+  window.randomEncounter = randomEncounter;
+  function getTypeFromPokemon(pokemon) {
+    const typeMap = {
+      charmander: "fire",
+      cyndaquil: "fire",
+      torchic: "fire",
+      bulbasaur: "grass",
+      chikorita: "grass",
+      treecko: "grass",
+      squirtle: "water",
+      totodile: "water",
+      mudkip: "water"
+    };
+    return typeMap[pokemon] || "normal";
+  }
+
+  const startBtn = document.getElementById("main-action-button");
+  const remoteControl = document.querySelector(".remoteControl");
+  let hasChosen = false;
+  // startBtn.addEventListener('click', () => {
+  //   if (!currentPokemon) return;
+
+  //   document.getElementById('starter-screen').style.display = 'none';
+  //   document.getElementById('deck-builder').style.display = 'block';
+
+  // });
+  startBtn.addEventListener("click", () => {
+    if (!hasChosen && !currentPokemon) {
+      // Show/hide the drop bar of starters
+      remoteControl.classList.toggle("show");
+      startBtn.textContent = remoteControl.classList.contains("show")
+        ? "Hide Starters"
+        : "Choose Your Starter";
+      return;
+    }
+
+    if (!hasChosen && currentPokemon) {
+      startBtn.textContent = "Start Game";
+      hasChosen = true;
+    } else if (hasChosen) {
+      document.getElementById("starter-screen").style.display = "none";
+      document.getElementById("deck-builder").style.display = "block";
+    }
+    
+  
+    if (!hasChosen && currentPokemon) {
+      startBtn.textContent = "Start Game";
+      hasChosen = true;
+    } else if (hasChosen) {
+      document.getElementById("starter-screen").style.display = "none";
+      document.getElementById("deck-builder").style.display = "block";
+    }
   });
 
-  window.startBattle = function () {
+  // window.startBattle = function () {
+  //   document.getElementById('deck-builder').style.display = 'none';
+  //   document.getElementById('battle-screen').style.display = 'block';
+
+  //   document.getElementById('battle-screen').innerHTML = `
+  //     <h2>Battle Start!</h2>
+  //     <p>You are battling with ${currentPokemon.toUpperCase()}!</p>
+  //     <div class="enemy-card">
+  //       <h3>Enemy: Ashroot 🌿</h3>
+  //       <img src="https://i.imgur.com/ZsKTW3A.png" style="width: 120px;">
+  //       <p>HP: 60</p>
+  //     </div>
+  //   `;
+  // }
+  const typeEffectiveness = {
+    fire: { strongAgainst: "grass", weakAgainst: "water" },
+    water: { strongAgainst: "fire", weakAgainst: "grass" },
+    grass: { strongAgainst: "water", weakAgainst: "fire" }
+  };
+  window.startBattleWith = function(enemyId) {
+    if (!currentPokemon) {
+      alert("Please select your starter first!");
+      return;
+    }
+    
+    const enemy = enemies[enemyId];
+    
+    const playerType = getTypeFromPokemon(currentPokemon); // you’ll add this next
+    const enemyType = enemy.type.toLowerCase();
+    let effectivenessNote = "";
+
+if (typeEffectiveness[playerType]) {
+  if (typeEffectiveness[playerType].strongAgainst === enemyType) {
+    effectivenessNote = "<p style='color: green;'>Your type is super effective!</p>";
+  } else if (typeEffectiveness[playerType].weakAgainst === enemyType) {
+    effectivenessNote = "<p style='color: red;'>Your type is weak against this enemy!</p>";
+  }
+}
+  
+    if (!enemy) {
+      alert("Enemy not found!");
+      return;
+    }
+
     document.getElementById('deck-builder').style.display = 'none';
     document.getElementById('battle-screen').style.display = 'block';
 
+    // 1️⃣ Calculate the dynamic HP *before* writing HTML
+    const deckSize = document.querySelectorAll('.deck-slot-area .card-container').length;
+    const scaledHP = enemy.hp + deckSize * 10;
+
+// 2️⃣ Then render HTML and insert the value
     document.getElementById('battle-screen').innerHTML = `
       <h2>Battle Start!</h2>
       <p>You are battling with ${currentPokemon.toUpperCase()}!</p>
       <div class="enemy-card">
-        <h3>Enemy: Ashroot 🌿</h3>
-        <img src="https://i.imgur.com/ZsKTW3A.png" style="width: 120px;">
-        <p>HP: 60</p>
+        <h3>Enemy: ${enemy.name}</h3>
+        <img src="${enemy.sprite}" style="width: 120px;">
+        <p id="enemy-hp">HP: ${scaledHP}</p> <!-- ✅ You can now use the variable -->
+        <p style="font-style: italic;">${enemy.description}</p>
       </div>
-    `;
+      ${effectivenessNote}
+`;
+  
+    // document.getElementById('battle-screen').innerHTML = `
+    //   <h2>Battle Start!</h2>
+    //   <p>You are battling with ${currentPokemon.toUpperCase()}!</p>
+    //   <div class="enemy-card">
+    //     <h3>Enemy: ${enemy.name}</h3>
+    //     <img src="${enemy.sprite}" style="width: 120px;">
+
+    //     const deckSize = document.querySelectorAll('.deck-slot-area .card-container').length;
+    //     const scaledHP = enemy.hp + deckSize * 10; // each card adds 10 HP
+
+    //     <p>HP: ${scaledHP}</p>
+
+    //     <p style="font-style: italic;">${enemy.description}</p>
+    //   </div>
+    //   ${effectivenessNote}
+    // `;
   }
 
   // All your original functions go below (unchanged from what you just shared)
@@ -165,9 +326,16 @@ function partyRed() {
   document.getElementById('red').classList.add('selected');
   currentPokemon = 'charmander';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgb(161, 14, 14)';
   const img = document.getElementById('pokemonImg');
@@ -184,9 +352,16 @@ function partyGreen() {
   document.getElementById('green').classList.add('selected');
   currentPokemon = 'bulbasaur';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgb(53, 163, 2)';
   const img = document.getElementById('pokemonImg');
@@ -203,9 +378,16 @@ function partyBlue() {
   document.getElementById('blue').classList.add('selected');
   currentPokemon = 'squirtle';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgb(28, 145, 255)';
   const img = document.getElementById('pokemonImg');
@@ -222,9 +404,16 @@ function partyRed2() {
   document.getElementById('red2').classList.add('selected');
   currentPokemon = 'cyndaquil';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgba(231, 74, 26, 0.822)';
   const img = document.getElementById('pokemonImg');
@@ -241,9 +430,16 @@ function partyGreen2() {
   document.getElementById('green2').classList.add('selected');
   currentPokemon = 'chikorita';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgba(76, 197, 147, 0.822)';
   const img = document.getElementById('pokemonImg');
@@ -260,9 +456,16 @@ function partyBlue2() {
   document.getElementById('blue2').classList.add('selected');
   currentPokemon = 'totodile';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgba(6, 144, 207, 0.64)';
   const img = document.getElementById('pokemonImg');
@@ -279,9 +482,16 @@ function partyRed3() {
   document.getElementById('red3').classList.add('selected');
   currentPokemon = 'torchic';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgba(255, 174, 0, 0.822)';
   const img = document.getElementById('pokemonImg');
@@ -298,9 +508,16 @@ function partyGreen3() {
   document.getElementById('green3').classList.add('selected');
   currentPokemon = 'treecko';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
 
   document.body.style.backgroundColor = 'rgba(113, 223, 99, 0.822)';
   const img = document.getElementById('pokemonImg');
@@ -317,9 +534,18 @@ function partyBlue3() {
   document.getElementById('blue3').classList.add('selected');
   currentPokemon = 'mudkip';
   evolutionStage = 0;
+  hasChosen = true;
   startBtn.innerText = 'Start Game';
   startBtn.classList.remove('disabled');
   startBtn.classList.add('active');
+
+  const scene = document.getElementById('scene-overlay');
+  scene.style.backgroundImage = sceneMap[currentPokemon];
+  scene.classList.remove('scene-transition'); // reset animation
+  void scene.offsetWidth; // trigger reflow
+  scene.classList.add('scene-transition'); // re-apply animation
+
+  // document.getElementById('scene-overlay').style.backgroundImage = sceneMap[currentPokemon];
 
   document.body.style.backgroundColor = 'rgba(126, 228, 241, 0.822)';
   const img = document.getElementById('pokemonImg');
@@ -365,6 +591,10 @@ deckArea.addEventListener('drop', (e) => {
   newCard.classList.add('card-drop');
 
   deckArea.appendChild(newCard);
-});
 
 });
+
+
+});
+
+// const remoteControl = document.querySelector('.remoteControl');
